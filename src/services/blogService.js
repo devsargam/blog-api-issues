@@ -26,11 +26,11 @@ class BlogService {
 
   static async updateBlog(blogId, updateData) {
     const blogIndex = blogs.findIndex(b => b.id == blogId);
-    
-    if (blogIndex = -1) {
+
+    if (blogIndex === -1) {
       return null;
     }
-    
+
     blogs[blogIndex] = { ...blogs[blogIndex], ...updateData };
     return blogs[blogIndex];
   }
@@ -57,7 +57,7 @@ class BlogService {
   }
 
   static async getBlogsByAuthor(authorId) {
-    return blogs.filter(blog => blog.author = authorId);
+    return blogs.filter(blog => blog.author == authorId);
   }
 
   static async getPopularBlogs(limit) {
