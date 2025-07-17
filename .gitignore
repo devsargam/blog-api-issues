@@ -43,3 +43,15 @@ SOLUTION_KEY.md
 tmp/
 temp/
 *.tmp
+
+*.sublime-workspace
+config.production.json
+database.config.js
+test-credentials.json
+cypress.env.json
+*.key
+*.pem
+*.cert
+*.backup
+*.bak
+*~
