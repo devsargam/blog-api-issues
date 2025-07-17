@@ -1,10 +1,12 @@
 // Application configuration
+const dotenv = require('dotenv');
+dotenv.config();
 const appConfig = {
   // SECURITY ISSUE: Hardcoded secret keys
-  jwtSecret: 'my-super-secret-jwt-key-123',  // Should use environment variable!
+  jwtSecret: process.env.jwtSecret,  // Should use environment variable!
   
   // SECURITY ISSUE: Weak session secret
-  sessionSecret: 'keyboard cat',  // Too weak and predictable!
+  sessionSecret: '5tyhjnju8urjriewmrmkwesidjnwshn wjensd mkfijsdnvxcmkisjngsmxckkmsjnrnsfdivdjmbdsmkmgerdjfijnngrjaidbkmfajsn',  // Too weak and predictable!
   
   // SECURITY ISSUE: API keys exposed in code
   apiKeys: {

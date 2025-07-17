@@ -38,13 +38,13 @@ const blogSchema = new mongoose.Schema({
   // Issue 7: views counter has wrong default
   views: {
     type: Number,
-    default: null // Should be 0
+    default: 0 // Should be 0
   },
   
   // Issue 8: likes stored as number instead of array of user references
   likes: {
-    type: Number,
-    default: 0
+    type: [],
+    default: []
     // Should be array of ObjectIds to track which users liked
   },
   
