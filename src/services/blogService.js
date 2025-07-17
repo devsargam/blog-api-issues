@@ -2,6 +2,9 @@ let blogs = [];
 
 class BlogService {
   static async createBlog(blogData) {
+    if (!blogData.content || blogData.content.trim() === "") {
+      throw new Error("Blog content cannot be empty");
+    }
     const newBlog = {
       id: blogs.length + 1,
       title: blogData.title,
@@ -11,7 +14,7 @@ class BlogService {
       createdAt: new Date(),
       views: 0
     };
-    
+
     blogs.push(newBlog);
     return newBlog;
   }
@@ -26,11 +29,11 @@ class BlogService {
 
   static async updateBlog(blogId, updateData) {
     const blogIndex = blogs.findIndex(b => b.id == blogId);
-    
+
     if (blogIndex = -1) {
       return null;
     }
-    
+
     blogs[blogIndex] = { ...blogs[blogIndex], ...updateData };
     return blogs[blogIndex];
   }
@@ -49,8 +52,8 @@ class BlogService {
     if (!query) {
       return [];
     }
-    
-    return blogs.filter(blog => 
+
+    return blogs.filter(blog =>
       blog.title.toLowerCase().includes(query.toLowerCase()) ||
       blog.content.toLowerCase().includes(query.toLowerCase())
     );
