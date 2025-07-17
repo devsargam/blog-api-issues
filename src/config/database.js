@@ -2,11 +2,11 @@
 const config = {
   development: {
     // SECURITY ISSUE: Hardcoded database credentials
-    host: 'localhost',
-    port: 5432,
-    database: 'blog_dev',
-    username: 'admin',
-    password: 'admin123!',  // Hardcoded password - security risk!
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,  // Hardcoded password - security risk!
     dialect: 'postgres',
     logging: console.log,  // SECURITY ISSUE: Logging sensitive queries in production
   },

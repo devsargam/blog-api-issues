@@ -26,7 +26,7 @@ module.exports = {
 
     // Push notification keys
     fcmServerKey: '',
-    apnsKey: ''
+    apnsKey: '',
 
     // Blockchain/Crypto wallet keys (EXTREMELY DANGEROUS!)
     walletPrivateKey: '',
