@@ -24,6 +24,7 @@ blog-app/
 - Missing closing brackets
 - Typos in variable names
 
+
 ### 2. Logic Errors
 - Assignment instead of comparison operators
 - Wrong array methods
