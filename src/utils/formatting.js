@@ -61,7 +61,7 @@ const formatBytes = (bytes, decimals = 2) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   
   // BUG: Math.floor should be used instead of parseInt
-  const i = parseInt(Math.log(bytes) / Math.log(k));
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
   
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
@@ -121,13 +121,21 @@ const formatTimeAgo = (date) => {
   for (const [unit, secondsInUnit] of Object.entries(intervals)) {
     const interval = Math.floor(seconds / secondsInUnit);
     
-    if (interval >= 1) {
+    if (interval == 1) {
       // BUG: Doesn't pluralize correctly
       return `${interval} ${unit} ago`;
+    }
+    if (interval > 1) {
+      // BUG: Doesn't pluralize correctly
+      return `${interval} ${unit}'s ago`;
     }
   }
   
   // BUG: Missing "just now" for very recent times
+
+  if (seconds<=5){
+    return "just now"
+  }
   return `${seconds} seconds ago`;
 };
 
