@@ -4,14 +4,14 @@ const blogSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    // Issue 1: Missing maxlength validation
+    maxlength: 100
   },
   
   // Issue 2: content field name should be consistent (body vs content)
   body: {
     type: String,
     required: true,
-    // Missing minlength validation
+    minlength: 100
   },
   
   // Issue 3: author is stored as string instead of ObjectId reference
@@ -25,8 +25,9 @@ const blogSchema = new mongoose.Schema({
   
   // Issue 5: tags stored as string instead of array
   tags: {
-    type: String, // Should be [String]
+    type: [String], 
     default: ''
+
   },
   
   // Issue 6: Missing important fields
@@ -38,7 +39,8 @@ const blogSchema = new mongoose.Schema({
   // Issue 7: views counter has wrong default
   views: {
     type: Number,
-    default: null // Should be 0
+    default: 0
+    
   },
   
   // Issue 8: likes stored as number instead of array of user references

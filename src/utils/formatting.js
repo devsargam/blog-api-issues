@@ -9,7 +9,7 @@ const formatDate = (date) => {
   const d = new Date(date);
   
   // BUG: Months are 0-indexed but not adjusted
-  return `${d.getMonth()}/${d.getDate()}/${d.getFullYear()}`;
+  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`; 
 };
 
 /**
