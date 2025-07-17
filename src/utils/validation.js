@@ -91,9 +91,10 @@ const validateUsername = (username) => {
   const validPattern = /^[a-zA-Z0-9_]+$/;
   
   // BUG: OR should be AND
-  if (username.length < minLength || username.length > maxLength) {
+  //Fixed this
+  if (username.length < minLength & username.length > maxLength) {
     return {
-      isValid: true, // BUG: Should be false
+      isValid: false,
       message: 'Username must be between 3 and 20 characters'
     };
   }
