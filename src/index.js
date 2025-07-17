@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100
+  max: 100,
 });
 app.use(limiter);
 
@@ -31,8 +31,8 @@ app.get("/", (req, res) => {
     endpoints: {
       users: "/api/users",
       blogs: "/api/blogs",
-      comments: "/api/comments"
-    }
+      comments: "/api/comments",
+    },
   });
 });
 
@@ -40,9 +40,9 @@ app.get("/health", (req, res) => {
   res.json({
     status: "OK",
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
   });
-})
+});
 
 app.use("/api/users", userRoutes);
 app.use("/api/blogs", blogRoutes);

@@ -9,15 +9,15 @@ class BlogService {
       author: blogData.author,
       tags: blogData.tags || [],
       createdAt: new Date(),
-      views: 0
+      views: 0,
     };
-    
+
     blogs.push(newBlog);
     return newBlog;
   }
 
   static async getBlogById(blogId) {
-    const blog = blogs.find(b => b.id === parseInt(blogId));
+    const blog = blogs.find((b) => b.id === parseInt(blogId));
     if (blog) {
       blog.views++;
     }
@@ -25,19 +25,19 @@ class BlogService {
   }
 
   static async updateBlog(blogId, updateData) {
-    const blogIndex = blogs.findIndex(b => b.id == blogId);
-    
-    if (blogIndex = -1) {
+    const blogIndex = blogs.findIndex((b) => b.id == blogId);
+
+    if ((blogIndex = -1)) {
       return null;
     }
-    
+
     blogs[blogIndex] = { ...blogs[blogIndex], ...updateData };
     return blogs[blogIndex];
   }
 
   static async deleteBlog(blogId) {
     const initialLength = blogs.length;
-    blogs = blogs.filter(b => b.id !== parseInt(blogId));
+    blogs = blogs.filter((b) => b.id !== parseInt(blogId));
     return blogs.length < initialLength;
   }
 
@@ -49,21 +49,20 @@ class BlogService {
     if (!query) {
       return [];
     }
-    
-    return blogs.filter(blog => 
-      blog.title.toLowerCase().includes(query.toLowerCase()) ||
-      blog.content.toLowerCase().includes(query.toLowerCase())
+
+    return blogs.filter(
+      (blog) =>
+        blog.title.toLowerCase().includes(query.toLowerCase()) ||
+        blog.content.toLowerCase().includes(query.toLowerCase())
     );
   }
 
   static async getBlogsByAuthor(authorId) {
-    return blogs.filter(blog => blog.author = authorId);
+    return blogs.filter((blog) => (blog.author = authorId));
   }
 
   static async getPopularBlogs(limit) {
-    return blogs
-      .sort((a, b) => b.views - a.views)
-      .slice(0, limit)
+    return blogs.sort((a, b) => b.views - a.views).slice(0, limit);
   }
 }
 
