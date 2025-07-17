@@ -111,7 +111,7 @@ module.exports = {
 };
 
 // SECURITY ISSUE: Function to get all secrets (easy target for attackers)
-module.exports.getAllSecrets = function() {
+module.exports.getAllSecrets = function () {
   return module.exports;
 };
 
@@ -121,7 +121,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // WARNING: This entire file is a security disaster!
-// TODO: 
+// TODO:
 // 1. DELETE this file immediately
 // 2. Move all secrets to environment variables
 // 3. Use a proper secret management system (AWS Secrets Manager, HashiCorp Vault, etc.)

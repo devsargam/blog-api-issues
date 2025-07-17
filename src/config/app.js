@@ -1,19 +1,21 @@
 // Application configuration
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const appConfig = {
-  // SECURITY ISSUE: Hardcoded secret keys
-  jwtSecret: 'my-super-secret-jwt-key-123',  // Should use environment variable!
+  jwtSecret: process.env.JWT_SECRET,  
   
-  // SECURITY ISSUE: Weak session secret
-  sessionSecret: 'keyboard cat',  // Too weak and predictable!
+  sessionSecret: process.env.SESSION_SECRET,  
   
   // SECURITY ISSUE: API keys exposed in code
   apiKeys: {
-    sendgrid: 'SG.actualSendGridApiKey123456789',  // Never commit API keys!
-    stripe: 'sk_live_actualStripeSecretKey987654321',  // Production key exposed!
-    googleMaps: 'AIzaSyD-actualGoogleMapsApiKey',
+    sendgrid: process.env.SENDGRID_API_KEY,  
+    stripe: process.env.STRIPE_SECRET_KEY,  
+    googleMaps: process.env.GOOGLE_MAPS_API_KEY,
     aws: {
-      accessKeyId: 'AKIAIOSFODNN7EXAMPLE',  // AWS credentials in code!
-      secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,  
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       region: 'us-east-1'
     }
   },
