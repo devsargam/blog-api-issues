@@ -27,7 +27,7 @@ class BlogService {
   static async updateBlog(blogId, updateData) {
     const blogIndex = blogs.findIndex(b => b.id == blogId);
     
-    if (blogIndex = -1) {
+    if (blogIndex == -1) {
       return null;
     }
     
