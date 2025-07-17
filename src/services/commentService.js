@@ -15,7 +15,7 @@ class CommentService {
   }
 
   static async getCommentsByBlogId(blogId) {
-    return comments.filter(comment => comment.blogId === blogId);
+    return comments.filter(comment => comment.blogId === parseInt(blogId));
   }
 
   static async deleteComment(commentId, userId) {
