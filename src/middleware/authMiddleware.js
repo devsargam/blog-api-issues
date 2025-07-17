@@ -1,29 +1,27 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = 'my-secret-key';
+const SECRET_KEY = "my-secret-key";
 
 const authMiddleware = (req, res, next) => {
   const token = req.headers.authorization;
-  
+
   if (!token) {
-    return res.status(401).json({ error: 'No token provided' });
+    return res.status(401).json({ error: "No token provided" });
   }
-  
+
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(403).json({ error: 'Invalid token' });
+    res.status(403).json({ error: "Invalid token" });
   }
 };
 
 const generateToken = (user) => {
-  return jwt.sign(
-    { id: user.id, email: user.email },
-    SECRET_KEY,
-    { expiresIn: '24h' }
-  );
-}
+  return jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
+    expiresIn: "24h",
+  });
+};
 
 module.exports = { authMiddleware, generateToken };

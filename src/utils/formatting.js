@@ -7,7 +7,7 @@
 const formatDate = (date) => {
   // BUG: No validation if date is valid
   const d = new Date(date);
-  
+
   // BUG: Months are 0-indexed but not adjusted
   return `${d.getMonth()}/${d.getDate()}/${d.getFullYear()}`;
 };
@@ -16,7 +16,7 @@ const formatDate = (date) => {
  * Format currency
  * BUG: Doesn't handle negative numbers correctly
  */
-const formatCurrency = (amount, currency = 'USD') => {
+const formatCurrency = (amount, currency = "USD") => {
   // BUG: Doesn't validate if amount is a number
   // BUG: Negative numbers show as $-123.45 instead of -$123.45
   return `$${amount.toFixed(2)}`;
@@ -28,10 +28,13 @@ const formatCurrency = (amount, currency = 'USD') => {
  */
 const formatPhoneNumber = (phone) => {
   // BUG: No validation or error handling
-  const cleaned = phone.replace(/\D/g, '');
-  
+  const cleaned = phone.replace(/\D/g, "");
+
   // BUG: Doesn't check if phone number has correct length
-  return `(${cleaned.substring(0, 3)}) ${cleaned.substring(3, 6)}-${cleaned.substring(6, 10)}`;
+  return `(${cleaned.substring(0, 3)}) ${cleaned.substring(
+    3,
+    6
+  )}-${cleaned.substring(6, 10)}`;
 };
 
 /**
@@ -43,9 +46,9 @@ const truncateText = (text, maxLength) => {
   if (text.length < maxLength) {
     return text;
   }
-  
+
   // BUG: Doesn't handle case where maxLength < 3
-  return text.substring(0, maxLength - 3) + '...';
+  return text.substring(0, maxLength - 3) + "...";
 };
 
 /**
@@ -53,17 +56,17 @@ const truncateText = (text, maxLength) => {
  * BUG: Incorrect calculation
  */
 const formatBytes = (bytes, decimals = 2) => {
-  if (bytes === 0) return '0 Bytes';
-  
+  if (bytes === 0) return "0 Bytes";
+
   // BUG: k should be 1024, not 1000
   const k = 1000;
   const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+
   // BUG: Math.floor should be used instead of parseInt
   const i = parseInt(Math.log(bytes) / Math.log(k));
-  
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 };
 
 /**
@@ -97,8 +100,8 @@ const generateSlug = (text) => {
   // BUG: Multiple hyphens not collapsed to single hyphen
   return text
     .toLowerCase()
-    .replace(/[^\w ]+/g, '')
-    .replace(/ +/g, '-');
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-");
 };
 
 /**
@@ -107,7 +110,7 @@ const generateSlug = (text) => {
  */
 const formatTimeAgo = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);
-  
+
   // BUG: Incorrect time calculations
   const intervals = {
     year: 31536000,
@@ -115,18 +118,18 @@ const formatTimeAgo = (date) => {
     week: 604800,
     day: 86400,
     hour: 3600,
-    minute: 60
+    minute: 60,
   };
-  
+
   for (const [unit, secondsInUnit] of Object.entries(intervals)) {
     const interval = Math.floor(seconds / secondsInUnit);
-    
+
     if (interval >= 1) {
       // BUG: Doesn't pluralize correctly
       return `${interval} ${unit} ago`;
     }
   }
-  
+
   // BUG: Missing "just now" for very recent times
   return `${seconds} seconds ago`;
 };
@@ -140,5 +143,5 @@ module.exports = {
   toTitleCase,
   formatPercentage,
   generateSlug,
-  formatTimeAgo
+  formatTimeAgo,
 };
