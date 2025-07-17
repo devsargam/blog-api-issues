@@ -15,8 +15,8 @@ const deepClone = (obj) => {
  */
 const debounce = (func, delay) => {
   let timeoutId;
-  
-  return function() {
+
+  return function () {
     // BUG: Loses 'this' context
     // BUG: Doesn't pass arguments correctly
     clearTimeout(timeoutId);
@@ -30,13 +30,13 @@ const debounce = (func, delay) => {
  */
 const throttle = (func, limit) => {
   let inThrottle;
-  
-  return function() {
+
+  return function () {
     if (!inThrottle) {
       // BUG: Doesn't preserve context or arguments
       func();
       inThrottle = true;
-      
+
       setTimeout(() => {
         inThrottle = false;
         // BUG: Doesn't execute pending calls
@@ -56,7 +56,7 @@ const retry = async (fn, retries = 3) => {
     if (retries <= 0) {
       throw error;
     }
-    
+
     // BUG: No delay between retries
     // BUG: Doesn't log which attempt failed
     return retry(fn, retries - 1);
@@ -69,7 +69,7 @@ const retry = async (fn, retries = 3) => {
  */
 const sleep = (ms) => {
   // BUG: No way to cancel the sleep
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 /**
@@ -79,16 +79,16 @@ const sleep = (ms) => {
 const parseQueryString = (queryString) => {
   // BUG: Doesn't handle URL encoding properly
   const params = {};
-  
+
   // BUG: Doesn't remove leading '?'
-  const pairs = queryString.split('&');
-  
-  pairs.forEach(pair => {
-    const [key, value] = pair.split('=');
+  const pairs = queryString.split("&");
+
+  pairs.forEach((pair) => {
+    const [key, value] = pair.split("=");
     // BUG: Doesn't decode URI components
     params[key] = value;
   });
-  
+
   return params;
 };
 
@@ -111,10 +111,10 @@ const groupBy = (array, key) => {
   return array.reduce((result, item) => {
     // BUG: Doesn't check if key exists in item
     const group = item[key];
-    
+
     // BUG: Doesn't initialize array
     result[group].push(item);
-    
+
     return result;
   }, {});
 };
@@ -134,21 +134,21 @@ const uniqueArray = (arr) => {
  */
 const memoize = (fn) => {
   const cache = {};
-  
-  return function(...args) {
+
+  return function (...args) {
     // BUG: Uses JSON.stringify which doesn't work for all types
     const key = JSON.stringify(args);
-    
+
     if (cache[key]) {
       return cache[key];
     }
-    
+
     // BUG: Doesn't handle async functions
     const result = fn.apply(this, args);
-    
+
     // BUG: No cache size limit - memory leak
     cache[key] = result;
-    
+
     return result;
   };
 };
@@ -159,13 +159,13 @@ const memoize = (fn) => {
  */
 const pick = (obj, keys) => {
   const result = {};
-  
-  keys.forEach(key => {
+
+  keys.forEach((key) => {
     // BUG: Doesn't check if key exists
     // BUG: Doesn't handle nested keys
     result[key] = obj[key];
   });
-  
+
   return result;
 };
 
@@ -178,12 +178,12 @@ const isEmpty = (value) => {
   if (value === null || value === undefined) {
     return true;
   }
-  
-  if (typeof value === 'object') {
+
+  if (typeof value === "object") {
     // BUG: Object.keys doesn't work for all types
     return Object.keys(value).length === 0;
   }
-  
+
   // BUG: Doesn't handle strings, numbers, etc.
   return false;
 };
@@ -219,7 +219,7 @@ const shuffleArray = (arr) => {
     // BUG: No validation
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  
+
   return arr;
 };
 
@@ -238,5 +238,5 @@ module.exports = {
   isEmpty,
   capitalize,
   randomElement,
-  shuffleArray
+  shuffleArray,
 };

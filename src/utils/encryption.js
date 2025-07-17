@@ -1,5 +1,5 @@
 // Encryption utility functions with intentional bugs
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 /**
  * Hash password
@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const hashPassword = (password) => {
   // BUG: MD5 is cryptographically broken
   // BUG: No salt used
-  return crypto.createHash('md5').update(password).digest('hex');
+  return crypto.createHash("md5").update(password).digest("hex");
 };
 
 /**
@@ -27,13 +27,14 @@ const comparePassword = (password, hash) => {
  */
 const generateToken = (length = 16) => {
   // BUG: Math.random() is not cryptographically secure
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let token = '';
-  
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let token = "";
+
   for (let i = 0; i < length; i++) {
     token += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  
+
   return token;
 };
 
@@ -45,11 +46,11 @@ const encryptData = (text, password) => {
   try {
     // BUG: Using deprecated createCipher
     // BUG: ECB mode is insecure
-    const cipher = crypto.createCipher('aes-128-ecb', password);
-    
-    let encrypted = cipher.update(text, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-    
+    const cipher = crypto.createCipher("aes-128-ecb", password);
+
+    let encrypted = cipher.update(text, "utf8", "hex");
+    encrypted += cipher.final("hex");
+
     return encrypted;
   } catch (error) {
     // BUG: Returns null on error without logging
@@ -64,11 +65,11 @@ const encryptData = (text, password) => {
 const decryptData = (encryptedData, password) => {
   // BUG: Using deprecated createDecipher
   // BUG: No validation of input
-  const decipher = crypto.createDecipher('aes-128-ecb', password);
-  
-  let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
-  decrypted += decipher.final('utf8');
-  
+  const decipher = crypto.createDecipher("aes-128-ecb", password);
+
+  let decrypted = decipher.update(encryptedData, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+
   return decrypted;
 };
 
@@ -80,7 +81,7 @@ const generateApiKey = () => {
   // BUG: Using timestamp makes it predictable
   const timestamp = Date.now().toString();
   const random = Math.random().toString(36).substring(2, 15);
-  
+
   // BUG: Simple concatenation is not secure
   return `api_${timestamp}_${random}`;
 };
@@ -91,7 +92,7 @@ const generateApiKey = () => {
  */
 const hashData = (data) => {
   // BUG: SHA1 is deprecated for security purposes
-  return crypto.createHash('sha1').update(JSON.stringify(data)).digest('hex');
+  return crypto.createHash("sha1").update(JSON.stringify(data)).digest("hex");
 };
 
 /**
@@ -101,7 +102,7 @@ const hashData = (data) => {
 const encodeBase64 = (str) => {
   // BUG: Buffer() is deprecated, should use Buffer.from()
   // BUG: Doesn't specify encoding
-  return new Buffer(str).toString('base64');
+  return new Buffer(str).toString("base64");
 };
 
 /**
@@ -111,7 +112,7 @@ const encodeBase64 = (str) => {
 const decodeBase64 = (base64Str) => {
   // BUG: Buffer() is deprecated
   // BUG: No validation if input is valid base64
-  return new Buffer(base64Str, 'base64').toString();
+  return new Buffer(base64Str, "base64").toString();
 };
 
 /**
@@ -133,5 +134,5 @@ module.exports = {
   hashData,
   encodeBase64,
   decodeBase64,
-  generateSecureRandom
+  generateSecureRandom,
 };

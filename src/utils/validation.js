@@ -20,18 +20,18 @@ const validatePassword = (password) => {
   const hasUpperCase = /[A-Z]/.test(password);
   const hasLowerCase = /[a-z]/.test(password);
   const hasNumbers = /\d/.test(password);
-  
+
   // BUG: Always returns true if length is met, ignoring other criteria
   if (password.length >= minLength) {
     return {
       isValid: true,
-      message: 'Password is strong'
+      message: "Password is strong",
     };
   }
-  
+
   return {
     isValid: hasUpperCase && hasLowerCase && hasNumbers,
-    message: 'Password must contain uppercase, lowercase, and numbers'
+    message: "Password must contain uppercase, lowercase, and numbers",
   };
 };
 
@@ -76,9 +76,7 @@ const validateDate = (dateString) => {
  */
 const sanitizeInput = (input) => {
   // BUG: Only replaces < and >, missing other dangerous characters
-  return input
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 };
 
 /**
@@ -89,25 +87,25 @@ const validateUsername = (username) => {
   const minLength = 3;
   const maxLength = 20;
   const validPattern = /^[a-zA-Z0-9_]+$/;
-  
+
   // BUG: OR should be AND
   if (username.length < minLength || username.length > maxLength) {
     return {
       isValid: true, // BUG: Should be false
-      message: 'Username must be between 3 and 20 characters'
+      message: "Username must be between 3 and 20 characters",
     };
   }
-  
+
   if (!validPattern.test(username)) {
     return {
       isValid: false,
-      message: 'Username can only contain letters, numbers, and underscores'
+      message: "Username can only contain letters, numbers, and underscores",
     };
   }
-  
+
   return {
     isValid: true,
-    message: 'Username is valid'
+    message: "Username is valid",
   };
 };
 
@@ -118,5 +116,5 @@ module.exports = {
   validateURL,
   validateDate,
   sanitizeInput,
-  validateUsername
+  validateUsername,
 };
